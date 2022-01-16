@@ -19,6 +19,6 @@ app.use('/api/v1', router);
 
 app.get('', (req, res) => { res.redirect('/api-docs'); });
 
-app.use(errHandler);
+app.use(...errHandler);
 
 export default app;
