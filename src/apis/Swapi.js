@@ -26,7 +26,7 @@ export default class SwAPI {
   }
 
   async getFilm(id) {
-    const endpoint = `film/${id}`;
+    const endpoint = `films/${id}`;
     return this.customFetch(endpoint);
   }
 }

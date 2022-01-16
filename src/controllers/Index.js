@@ -5,16 +5,15 @@ export default class Controller {
     this.key = key;
   }
 
-  handleService({
+  async handleService({
     method, res, next, status = 200, arg,
   }) {
-    method(arg).then((data) => {
-      if (data != null) {
-        res.locals[this.key] = data;
-        res.status(status);
-        next();
-      } else next('Service error');
-    }).catch(next);
+    const data = await method(arg).catch(next);
+    if (data != null) {
+      res.locals[this.key] = data;
+      res.status(status);
+      next();
+    } else next('Service error');
   }
 
   dispatchResponse(req, res) {

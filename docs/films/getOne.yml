@@ -1,0 +1,17 @@
+paths:
+  /films/{id}:                # path of the films from your endpoint
+    get:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - Film            # Value of the tag
+      summary: gets movie data
+      parameters:
+        - name: id
+          in: path
+          description: movie id to get data.
+          schema:
+            type: number
+      responses:          # server responses
+        200:
+          description: An object of movie data
+        401:
+          description: Error message object in error property of response body
