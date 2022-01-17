@@ -11,11 +11,12 @@ export default class FilmsServices {
     const { listFilms } = new this.api.SwAPI();
     const films = await listFilms(searchField);
     const sortedFilms = films.results.sort((a, b) => -a.release_date.localeCompare(b.release_date));
-    return sortedFilms;
+    return { message: 'Films successfully fetched', data: sortedFilms };
   }
 
   async retrieveFilm(id) {
     const { getFilm } = new this.api.SwAPI();
-    return getFilm(id);
+    const data = await getFilm(id);
+    return { message: 'Film successfully retrieved', data };
   }
 }

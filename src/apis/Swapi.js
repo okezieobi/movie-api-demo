@@ -1,5 +1,7 @@
 import nodeFetch from 'node-fetch';
 
+import AppError from '../errors';
+
 const handleFetch = async (endpoint, method, body) => {
   const options = {
     method,
@@ -9,6 +11,7 @@ const handleFetch = async (endpoint, method, body) => {
     },
   };
   const data = await nodeFetch(`https://swapi.dev/api/${endpoint}`, options);
+  if (data.status > 399) throw new AppError(data.statusText, 'Request', { code: data.status });
   const response = await data.json();
   return response;
 };
@@ -27,6 +30,7 @@ export default class SwAPI {
 
   async getFilm(id) {
     const endpoint = `films/${id}`;
-    return this.customFetch(endpoint);
+    const result = await this.customFetch(endpoint);
+    return result;
   }
 }

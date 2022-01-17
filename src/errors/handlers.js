@@ -2,9 +2,9 @@ const status = 'error';
 const isClient = true;
 const timestamp = new Date();
 
-const fetchError = (err, req, res, next) => {
-  if (err.constructor.name === 'FetchError') {
-    res.status(409);
+const handleRequestError = (err, req, res, next) => {
+  if (err.name === 'RequestError') {
+    res.status(err.data.code);
     next({
       isClient,
       response: {
@@ -25,6 +25,6 @@ const errorHandler = ((err, req, res, next) => {
 });
 
 export default [
-  fetchError,
+  handleRequestError,
   errorHandler,
 ];
