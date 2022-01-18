@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import FilmsServices from '../services/Films';
-import Controller from './Index';
+import Controller from '.';
 
 export default class FilmsController extends Controller {
   constructor(Services = FilmsServices, key = 'film') {
@@ -10,14 +10,14 @@ export default class FilmsController extends Controller {
     this.getFilm = this.getFilm.bind(this);
   }
 
-  async listFilms({ query: { search_field } }, res, next) {
+  listFilms({ query: { search_field } }, res, next) {
     const { findFilms } = new this.Services();
     return this.handleService({
       method: findFilms, res, next, arg: search_field,
     });
   }
 
-  async getFilm({ params: { id } }, res, next) {
+  getFilm({ params: { id } }, res, next) {
     const { retrieveFilm } = new this.Services();
     return this.handleService({
       method: retrieveFilm, res, next, arg: id,

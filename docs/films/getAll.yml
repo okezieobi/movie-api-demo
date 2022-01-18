@@ -7,7 +7,7 @@ paths:
       parameters:
         - name: search_field
           in: query
-          description: search field to filter movie data.
+          description: field to search movie data.
           schema:
             type: string
       responses:          # server responses

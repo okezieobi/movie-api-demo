@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import nodeFetch from 'node-fetch';
 
 import AppError from '../errors';
@@ -32,5 +33,10 @@ export default class SwAPI {
     const endpoint = `films/${id}`;
     const result = await this.customFetch(endpoint);
     return result;
+  }
+
+  async listPeople({ search_field, page = 1 }) {
+    const endpoint = search_field != null ? `people/?page=${page}&name=${search_field}` : `people/?page=${page}`;
+    return this.customFetch(endpoint);
   }
 }

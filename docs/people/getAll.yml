@@ -1,0 +1,27 @@
+paths:
+  /people:                # path of the films from your endpoint
+    get:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - People            # Value of the tag
+      summary: gets character data
+      parameters:
+        - name: search_field
+          in: query
+          description: field to search character data.
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: page to get character data.
+          schema:
+            type: number
+        - name: gender_filter
+          in: query
+          description: parameter to filter movie data.
+          schema:
+            type: string
+      responses:          # server responses
+        200:
+          description: An object with an array of character data in results property
+        401:
+          description: Error message object in error property of response body
