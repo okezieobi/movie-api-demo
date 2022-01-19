@@ -12,7 +12,7 @@ export default class PeopleServices {
 
   async listPeople({ page, gender_filter }) {
     const { listPeople } = new this.api.SwAPI();
-    const people = await listPeople(page);
+    const people = await listPeople(parseFloat(page));
     people.sorted_results = people.results
       .sort((a, b) => parseFloat(a.height) - parseFloat(b.height));
     await new this.schema.People({ gender_filter }).validateGender();
@@ -20,10 +20,10 @@ export default class PeopleServices {
       .filter(({ gender }) => gender === gender_filter) : people.sorted_results;
     people.total_no_characters = people.filtered_results.length > 1
       ? people.filtered_results.length : 0;
+    people.total_height = { cm: 0 };
     if (people.filtered_results.length > 0) {
-      people.total_height = { cm: 0 };
-      people.results.forEach((filteredPerson) => {
-        people.total_height.cm += parseFloat(filteredPerson.height);
+      people.filtered_results.forEach((filteredPerson) => {
+        if (filteredPerson.height !== 'unknown') people.total_height.cm += parseFloat(filteredPerson.height);
       });
     }
     people.total_height.ft = people.total_height.cm / 30.48;
