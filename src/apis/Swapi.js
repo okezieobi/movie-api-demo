@@ -2,6 +2,7 @@
 import nodeFetch from 'node-fetch';
 
 import AppError from '../errors';
+import PeopleSchema from '../schemas/People';
 
 const handleFetch = async (endpoint, method, body) => {
   const options = {
@@ -18,14 +19,17 @@ const handleFetch = async (endpoint, method, body) => {
 };
 
 export default class SwAPI {
-  constructor(customFetch = handleFetch) {
+  constructor(customFetch = handleFetch, schemas = { People: PeopleSchema }) {
     this.customFetch = customFetch;
+    this.schemas = schemas;
     this.listFilms = this.listFilms.bind(this);
     this.getFilm = this.getFilm.bind(this);
+    this.listPeople = this.listPeople.bind(this);
+    this.searchPeople = this.searchPeople.bind(this);
   }
 
   async listFilms(searchField) {
-    const endpoint = searchField != null ? `films/?title=${searchField}` : 'films';
+    const endpoint = searchField != null ? `films/?search=${searchField}` : 'films';
     return this.customFetch(endpoint);
   }
 
@@ -35,8 +39,15 @@ export default class SwAPI {
     return result;
   }
 
-  async listPeople({ search_field, page = 1 }) {
-    const endpoint = search_field != null ? `people/?page=${page}&name=${search_field}` : `people/?page=${page}`;
+  async listPeople(page = 1) {
+    await new this.schemas.People({ page }).validatePageNo();
+    const endpoint = `people/?page=${page}`;
+    return this.customFetch(endpoint);
+  }
+
+  async searchPeople({ search_field }) {
+    await new this.schemas.People({ search_field }).validateSearchField();
+    const endpoint = `people/?search=${search_field}`;
     return this.customFetch(endpoint);
   }
 }

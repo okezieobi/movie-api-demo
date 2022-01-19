@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import PeopleServices from '../services/People';
 import Controller from '.';
 
@@ -6,12 +7,20 @@ export default class PeopleController extends Controller {
     super(key);
     this.Services = Services;
     this.listPeople = this.listPeople.bind(this);
+    this.searchPeople = this.searchPeople.bind(this);
   }
 
   listPeople({ query }, res, next) {
     const { listPeople } = new this.Services();
     return this.handleService({
       method: listPeople, res, next, arg: query,
+    });
+  }
+
+  searchPeople({ query }, res, next) {
+    const { searchPeople } = new this.Services();
+    return this.handleService({
+      method: searchPeople, res, next, arg: query,
     });
   }
 }

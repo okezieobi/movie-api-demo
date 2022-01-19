@@ -3,8 +3,9 @@ import { Router } from 'express';
 import PeopleController from '../controllers/People';
 
 const router = Router();
-const { listPeople, dispatchResponse } = new PeopleController();
+const { listPeople, searchPeople, dispatchResponse } = new PeopleController();
 
-router.get('/', listPeople, dispatchResponse);
+router.get('/all', listPeople, dispatchResponse);
+router.get('/filtered', searchPeople, dispatchResponse);
 
 export default router;

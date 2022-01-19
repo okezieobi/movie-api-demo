@@ -1,22 +1,49 @@
-// import Ajv from 'ajv';
-// import ajvKeywords from 'ajv-keywords';
+import Ajv from 'ajv';
+import ajvKeywords from 'ajv-keywords';
 
-// const ajv = new Ajv({ allErrors: true });
-// ajvKeywords(ajv);
+const ajv = new Ajv({ allErrors: true });
+ajvKeywords(ajv);
 
-// export default class PeopleSchema {
-//   static async validateQuery(data) {
-//     const schema = ajv.compile({
-//       $async: true,
-//       type: 'object',
-//       additionalProperties: false,
-//       properties: {
-//         gender: { type: 'string' },
-//         name: { type: 'string' },
-//         height: { type: 'string' },
-//         sort_order_height: { enum: ['ascending', 'descending'] },
-//       },
-//     });
-//     return schema(data);
-//   }
-// }
+export default class PeopleSchema {
+  constructor(data) {
+    this.data = data;
+  }
+
+  async validateSearchField() {
+    const schema = ajv.compile({
+      $async: true,
+      type: 'object',
+      additionalProperties: false,
+      allRequired: true,
+      properties: {
+        search_field: { type: 'string' },
+      },
+    });
+    return schema(this.data);
+  }
+
+  async validateGender() {
+    const schema = ajv.compile({
+      $async: true,
+      type: 'object',
+      additionalProperties: false,
+      properties: {
+        gender_filter: { enum: ['male', 'female', 'n/a'] },
+      },
+    });
+    return schema(this.data);
+  }
+
+  async validatePageNo() {
+    const schema = ajv.compile({
+      $async: true,
+      type: 'object',
+      additionalProperties: false,
+      allRequired: true,
+      properties: {
+        page: { type: 'integer' },
+      },
+    });
+    return schema(this.data);
+  }
+}

@@ -16,7 +16,21 @@ const handleRequestError = (err, req, res, next) => {
         },
       },
     });
-  }
+  } else next(err);
+};
+
+const handleValidationError = (err, req, res, next) => {
+  if (err.constructor.name === 'ValidationError') {
+    res.status(400);
+    next({
+      isClient,
+      response: {
+        status,
+        message: err.message,
+        data: { ...err, timestamp },
+      },
+    });
+  } else next(err);
 };
 
 const errorHandler = ((err, req, res, next) => {
@@ -26,5 +40,6 @@ const errorHandler = ((err, req, res, next) => {
 
 export default [
   handleRequestError,
+  handleValidationError,
   errorHandler,
 ];

@@ -1,0 +1,17 @@
+paths:
+  /people/filtered:                # path of the films from your endpoint
+    get:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - People            # Value of the tag
+      summary: gets API filtered character data
+      parameters:
+        - name: search_field
+          in: query
+          description: field to search character data.
+          schema:
+            type: string
+      responses:          # server responses
+        200:
+          description: An object with an array of character data in results property
+        401:
+          description: Error message object in error property of response body
