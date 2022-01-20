@@ -12,7 +12,7 @@ paths:
               $ref: '#/components/schemas/create_comment'
             example:
               comment: 'fake comment'
-              film_id: '2'
+              film_id: 2
       responses:          # server responses
          201:
           description: Comment details object in data property of response body.
@@ -23,8 +23,10 @@ components:        # Schema definition for request body
   login:
     type: object
     properties:
-          body:
+          comment:
             type: string
+          film_id:
+            type: number
     required:
       - comment
       - film_id

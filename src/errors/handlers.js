@@ -33,6 +33,18 @@ const handleValidationError = (err, req, res, next) => {
   } else next(err);
 };
 
+const customErrorHandler = (err, req, res, next) => {
+  const error = { status, message: err.message, data: err.data };
+  switch (err.name) {
+    case 'QueryError':
+      res.status(400);
+      next({ isClient, response: error });
+      break;
+    default:
+      next(err);
+  }
+};
+
 const errorHandler = ((err, req, res, next) => {
   if (err.isClient) res.send(err.response);
   else next(err);
@@ -41,5 +53,6 @@ const errorHandler = ((err, req, res, next) => {
 export default [
   handleRequestError,
   handleValidationError,
+  customErrorHandler,
   errorHandler,
 ];

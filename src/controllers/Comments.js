@@ -9,10 +9,10 @@ export default class CommentController extends Controller {
     this.createOne = this.createOne.bind(this);
   }
 
-  createOne({ body }, res, next) {
+  createOne({ body, ip }, res, next) {
     const { createOne } = new this.Services();
     return this.handleService({
-      method: createOne, res, next, arg: body,
+      method: createOne, res, next, arg: { ...body, ip_address: ip },
     });
   }
 }

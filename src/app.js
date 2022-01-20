@@ -20,5 +20,6 @@ app.use('/api/v1', router);
 app.get('', (req, res) => { res.redirect('/api-docs'); });
 
 app.use(...errHandler);
+app.set('trust proxy', true);
 
 export default app;

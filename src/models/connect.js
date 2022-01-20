@@ -15,14 +15,12 @@ const pgp = pgPromise(options);
 // sudo -u postgres createuser <user> -P -s -e
 // sudo -u postgres createdb movie-api-demo
 
-export default class Connect {
-  constructor() {
-    this.db = pgp({
-      connectionString: process.env.NODE_ENV === 'production' ? process.env.DATABASE_URL : process.env.DEV_DATABASE_URL,
-    });
-    this.sql = (file) => {
-      const fullPath = joinPath(__dirname, file);
-      return new pgp.QueryFile(fullPath, { minify: true });
-    };
-  }
-}
+export default {
+  db: pgp({
+    connectionString: process.env.NODE_ENV === 'production' ? process.env.DATABASE_URL : process.env.DEV_DATABASE_URL,
+  }),
+  sql: (file) => {
+    const fullPath = joinPath(__dirname, file);
+    return new pgp.QueryFile(fullPath, { minify: true });
+  },
+};
