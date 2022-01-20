@@ -27,14 +27,17 @@
     "ajv-errors": "^3.0.0",
     "ajv-formats": "^2.1.0",
     "ajv-keywords": "^5.0.0",
+    "bluebird": "^3.7.2",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
     "express": "~4.16.1",
     "morgan": "~1.9.1",
     "node-fetch": "^2.6.1",
+    "pg-promise": "^10.11.1",
     "swagger-jsdoc": "^4.0.0",
     "swagger-ui-express": "^4.3.0",
+    "uuid": "^8.3.2",
     "validator": "^13.7.0"
   },
   "devDependencies": {

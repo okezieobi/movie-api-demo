@@ -1,0 +1,1 @@
+INSERT INTO comments(ip_address, film_id) VALUES(${ip_address}, ${film_id}) RETURNING *;
