@@ -29,7 +29,8 @@ class CommentModel {
       await connect.db.task(async (t) => {
         await Promise.all(data.map(async (film) => {
           const placeholder = film;
-          placeholder.comments = await t.any(sqlFiles.filterMany, [placeholder.episode_id]);
+          const film_id = parseInt(placeholder.url.replace(/^\D+/g, ''), 10);
+          placeholder.comments = await t.any(sqlFiles.filterMany, [film_id]);
           placeholder.comment_count = placeholder.comments.length;
         }));
       });
