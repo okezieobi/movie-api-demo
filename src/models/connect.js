@@ -17,7 +17,7 @@ const pgp = pgPromise(options);
 
 export default {
   db: pgp({
-    ssl: process.env.NODE_ENV === 'production',
+    ssl: { rejectUnauthorized: false },
     connectionString: process.env.NODE_ENV === 'production' ? process.env.DATABASE_URL : process.env.DEV_DATABASE_URL,
   }),
   sql(file) {
