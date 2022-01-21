@@ -1,7 +1,9 @@
 import SwAPI from '../apis/Swapi';
+import CommentModel from '../models/Comment';
 
 export default class FilmsServices {
-  constructor(api = { SwAPI }) {
+  constructor(model = { Comment: CommentModel }, api = { SwAPI }) {
+    this.model = model;
     this.api = api;
     this.findFilms = this.findFilms.bind(this);
     this.retrieveFilm = this.retrieveFilm.bind(this);
@@ -10,10 +12,10 @@ export default class FilmsServices {
   async findFilms(searchField) {
     const { listFilms } = new this.api.SwAPI();
     const films = await listFilms(searchField);
-    const sortedFilms = { ...films };
-    sortedFilms.results = films.results.length > 1 ? films.results
-      .sort((a, b) => -a.release_date.localeCompare(b.release_date)) : films;
-    return { message: 'Films successfully fetched', data: sortedFilms };
+    films.results.sort((a, b) => a.release_date.localeCompare(b.release_date));
+    const { filterMany } = new this.model.Comment();
+    await filterMany(films.results);
+    return { message: 'Films successfully fetched', data: films };
   }
 
   async retrieveFilm(id) {

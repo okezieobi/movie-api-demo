@@ -1,0 +1,1 @@
+SELECT * FROM comments WHERE id = $1 LIMIT 5 ORDER BY $2;

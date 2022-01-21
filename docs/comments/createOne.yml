@@ -20,7 +20,7 @@ paths:
             description: Error message array in error property of response body
 components:        # Schema definition for request body
  schemas:
-  login:
+  create_comment:
     type: object
     properties:
           comment:

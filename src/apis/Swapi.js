@@ -39,8 +39,8 @@ export default class SwAPI {
     return result;
   }
 
-  async listPeople(page = 1) {
-    await new this.schemas.People({ page }).validatePageNo();
+  async listPeople(page = '1') {
+    await new this.schemas.People({ page: parseFloat(page) }).validatePageNo();
     const endpoint = `people/?page=${page}`;
     return this.customFetch(endpoint);
   }

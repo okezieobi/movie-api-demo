@@ -16,6 +16,16 @@ class CommentModel {
       });
       return result;
     };
+    this.filterMany = async (data) => {
+      const sqlFile = connect.sql('../../sql/comments/filter.sql');
+      await connect.db.task(async (t) => {
+        await Promise.all(data.map(async (film) => {
+          const placeholder = film;
+          placeholder.comments = await t.any(sqlFile, placeholder.episode_id);
+          placeholder.comment_count = placeholder.comments.length;
+        }));
+      });
+    };
   }
 }
 

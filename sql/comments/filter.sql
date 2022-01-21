@@ -1,0 +1,1 @@
+SELECT film_id, comment, ip_address, create_date FROM comments WHERE film_id = $1 ORDER BY create_date DESC;
