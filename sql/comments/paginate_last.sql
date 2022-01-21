@@ -1,0 +1,1 @@
+SELECT * FROM comments ORDER BY create_date DESC LIMIT 5;

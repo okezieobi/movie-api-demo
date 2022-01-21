@@ -45,7 +45,7 @@ export default class SwAPI {
     return this.customFetch(endpoint);
   }
 
-  async searchPeople({ search_field }) {
+  async searchPeople(search_field) {
     await new this.schemas.People({ search_field }).validateSearchField();
     const endpoint = `people/?search=${search_field}`;
     return this.customFetch(endpoint);

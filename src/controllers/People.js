@@ -17,10 +17,10 @@ export default class PeopleController extends Controller {
     });
   }
 
-  searchPeople({ query }, res, next) {
+  searchPeople({ query: { search_people } }, res, next) {
     const { searchPeople } = new this.Services();
     return this.handleService({
-      method: searchPeople, res, next, arg: query,
+      method: searchPeople, res, next, arg: search_people,
     });
   }
 }

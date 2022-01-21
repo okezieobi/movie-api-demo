@@ -19,7 +19,7 @@ export default {
   db: pgp({
     connectionString: process.env.NODE_ENV === 'production' ? process.env.DATABASE_URL : process.env.DEV_DATABASE_URL,
   }),
-  sql: (file) => {
+  sql(file) {
     const fullPath = joinPath(__dirname, file);
     return new pgp.QueryFile(fullPath, { minify: true });
   },

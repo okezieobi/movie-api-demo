@@ -1,0 +1,17 @@
+paths:
+  /comments:                # path of the films from your endpoint
+    get:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - Comment            # Value of the tag
+      summary: gets paginated comments
+      parameters:
+        - name: id
+          in: query
+          description: starting id to get paginated comments.
+          schema:
+            type: string
+      responses:          # server responses
+        200:
+          description: An object with an array of comments
+        401:
+          description: Error message object in error property of response body

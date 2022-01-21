@@ -1,1 +1,1 @@
-SELECT * FROM comments WHERE id = $1 LIMIT 5 ORDER BY $2;
+SELECT * FROM comments WHERE id = $1 ORDER BY create_date DESC LIMIT 5;

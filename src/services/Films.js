@@ -12,9 +12,13 @@ export default class FilmsServices {
   async findFilms(searchField) {
     const { listFilms } = new this.api.SwAPI();
     const films = await listFilms(searchField);
-    films.results.sort((a, b) => a.release_date.localeCompare(b.release_date));
-    const { filterMany } = new this.model.Comment();
-    await filterMany(films.results);
+    if (films.results.length > 1) {
+      films.results.sort((a, b) => a.release_date.localeCompare(b.release_date));
+    }
+    if (films.results.length > 0) {
+      const { filterMany } = new this.model.Comment();
+      await filterMany(films.results);
+    }
     return { message: 'Films successfully fetched', data: films };
   }
 

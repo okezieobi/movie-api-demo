@@ -9,7 +9,8 @@ paths:
           in: path
           description: movie id to get data.
           schema:
-            type: number
+            type: integer
+            minimum: 1
       responses:          # server responses
         200:
           description: An object of movie data

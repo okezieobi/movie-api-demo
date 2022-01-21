@@ -1,14 +1,12 @@
 import Ajv from 'ajv';
 import ajvKeywords from 'ajv-keywords';
 
+import Schema from '.';
+
 const ajv = new Ajv({ allErrors: true });
 ajvKeywords(ajv);
 
-export default class PeopleSchema {
-  constructor(data) {
-    this.data = data;
-  }
-
+export default class PeopleSchema extends Schema {
   async validateSearchField() {
     const schema = ajv.compile({
       $async: true,

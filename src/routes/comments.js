@@ -4,9 +4,10 @@ import CommentController from '../controllers/Comments';
 
 const router = Router();
 
-const { createOne, dispatchResponse } = new CommentController();
+const { createOne, getPaginated, dispatchResponse } = new CommentController();
 
 router.route('/')
-  .post(createOne, dispatchResponse);
+  .post(createOne, dispatchResponse)
+  .get(getPaginated, dispatchResponse);
 
 export default router;

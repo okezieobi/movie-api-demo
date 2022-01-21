@@ -26,7 +26,8 @@ components:        # Schema definition for request body
           comment:
             type: string
           film_id:
-            type: number
+            type: integer
+            minimum: 1
     required:
       - comment
       - film_id

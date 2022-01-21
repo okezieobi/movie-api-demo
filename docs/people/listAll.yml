@@ -9,12 +9,14 @@ paths:
           in: query
           description: page to get character data.
           schema:
-            type: number
+            type: integer
+            minimum: 1
         - name: gender_filter
           in: query
           description: parameter to filter character data.
           schema:
             type: string
+            enum: [male, female, n/a]
       responses:          # server responses
         200:
           description: An object with an array of character data in results property
