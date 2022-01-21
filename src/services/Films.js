@@ -25,6 +25,8 @@ export default class FilmsServices {
   async retrieveFilm(id) {
     const { getFilm } = new this.api.SwAPI();
     const data = await getFilm(id);
+    const { filterOne } = new this.model.Comment();
+    await filterOne(data);
     return { message: 'Film successfully retrieved', data };
   }
 }

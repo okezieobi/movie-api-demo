@@ -7,7 +7,7 @@ import CommentSchema from '../schemas/Comment';
 const sqlFiles = {
   createTable: connect.sql('../../sql/comments/table.sql'),
   insertOne: connect.sql('../../sql/comments/insert.sql'),
-  filterMany: connect.sql('../../sql/comments/filter.sql'),
+  filter: connect.sql('../../sql/comments/filter.sql'),
   paginate: connect.sql('../../sql/comments/paginate.sql'),
   paginate_last: connect.sql('../../sql/comments/paginate_last.sql'),
 };
@@ -30,10 +30,16 @@ class CommentModel {
         await Promise.all(data.map(async (film) => {
           const placeholder = film;
           const film_id = parseInt(placeholder.url.replace(/^\D+/g, ''), 10);
-          placeholder.comments = await t.any(sqlFiles.filterMany, [film_id]);
+          placeholder.comments = await t.any(sqlFiles.filter, [film_id]);
           placeholder.comment_count = placeholder.comments.length;
         }));
       });
+    };
+    this.filterOne = async (data) => {
+      const placeholder = data;
+      const film_id = parseInt(placeholder.url.replace(/^\D+/g, ''), 10);
+      placeholder.comments = await connect.db.any(sqlFiles.filter, [film_id]);
+      placeholder.comment_count = placeholder.comments.length;
     };
   }
 
